@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'io.github.surajkumar'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.16.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.0'
+    implementation 'org.apache.logging.log4j:log4j-core:2.21.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.18.0'
+}
+
+tasks.withType(JavaCompile).each {
+    it.options.compilerArgs.add('--enable-preview')
+}
+
+tasks.register('parser', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'io.github.surajkumar.gradle.CodeParser'
+}
+
+build.dependsOn parser
