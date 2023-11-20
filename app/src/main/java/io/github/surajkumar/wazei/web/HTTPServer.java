@@ -1,4 +1,4 @@
-package io.github.surajkumar.wazei;
+package io.github.surajkumar.wazei.web;
 
 import com.sun.net.httpserver.HttpServer;
 import io.github.surajkumar.wazei.bootstrap.config.Config;
@@ -9,10 +9,10 @@ import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-public class WebServer {
+public class HTTPServer {
     private final ConfigSearcher configSearcher;
 
-    public WebServer(List<Config> configList) {
+    public HTTPServer(List<Config> configList) {
         this.configSearcher = new ConfigSearcher(configList);
     }
 
