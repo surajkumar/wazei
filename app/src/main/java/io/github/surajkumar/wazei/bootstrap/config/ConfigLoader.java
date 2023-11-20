@@ -14,7 +14,7 @@ public class ConfigLoader {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static List<Config> loadConfig() throws IOException, URISyntaxException {
-        URL resourceUrl = ConfigLoader.class.getResource("wazei.json");
+        URL resourceUrl = ConfigLoader.class.getResource("/wazei.json");
         if (resourceUrl != null) {
             String input = Files.readString(Path.of(resourceUrl.toURI()));
             TypeReference<List<Config>> typeReference = new TypeReference<>() {};

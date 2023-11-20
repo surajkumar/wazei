@@ -1,0 +1,47 @@
+[ {
+  "packageName" : "io.github.surajkumar",
+  "className" : "ExampleController",
+  "imports" : [ ],
+  "metadata" : [ {
+    "methodName" : "showUser",
+    "returnType" : "io.github.surajkumar.User",
+    "arguments" : [ ],
+    "config" : {
+      "path" : "/john",
+      "method" : "get",
+      "content-type" : "application/json"
+    }
+  }, {
+    "methodName" : "createUser",
+    "returnType" : "void",
+    "arguments" : [ {
+      "type" : "io.github.surajkumar.User",
+      "name" : "userBody"
+    } ],
+    "config" : {
+      "path" : "/create",
+      "method" : "post"
+    }
+  }, {
+    "methodName" : "hello",
+    "returnType" : "java.lang.String",
+    "arguments" : [ {
+      "type" : "java.lang.String",
+      "name" : "nameParam"
+    } ],
+    "config" : {
+      "path" : "/hello",
+      "method" : "get",
+      "content-type" : "application/text"
+    }
+  }, {
+    "methodName" : "ping",
+    "returnType" : "java.lang.String",
+    "arguments" : [ ],
+    "config" : {
+      "path" : "/ping",
+      "method" : "get",
+      "content-type" : "application/text"
+    }
+  } ]
+} ]

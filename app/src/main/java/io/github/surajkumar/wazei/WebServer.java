@@ -19,7 +19,7 @@ public class WebServer {
     public void create(String host, int port) {
         try {
             HttpServer httpServer = HttpServer.create(new InetSocketAddress(host, port), 0);
-            httpServer.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+            httpServer.setExecutor(Executors.newCachedThreadPool());
             httpServer.createContext("/", new RequestHandler(configSearcher));
             httpServer.start();
         } catch (IOException e) {
