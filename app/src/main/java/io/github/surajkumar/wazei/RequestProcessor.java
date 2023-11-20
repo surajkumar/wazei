@@ -2,11 +2,13 @@ package io.github.surajkumar.wazei;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.Headers;
+
 import io.github.surajkumar.wazei.config.Argument;
 import io.github.surajkumar.wazei.config.Config;
 import io.github.surajkumar.wazei.config.Metadata;
 import io.github.surajkumar.wazei.exceptions.MethodInvocationException;
 import io.github.surajkumar.wazei.exceptions.UnreadableRequestBodyException;
+
 import java.io.*;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -27,8 +29,7 @@ public class RequestProcessor {
     /**
      * Constructs a RequestProcessor with the given configuration.
      *
-     * @param config
-     *            The configuration used for processing requests.
+     * @param config The configuration used for processing requests.
      */
     public RequestProcessor(Config config) {
         this.config = config;
@@ -37,23 +38,15 @@ public class RequestProcessor {
     /**
      * Processes an incoming HTTP request.
      *
-     * @param path
-     *            The request path.
-     * @param httpMethod
-     *            The HTTP method (GET, POST, etc.).
-     * @param params
-     *            The query parameters.
-     * @param headers
-     *            The request headers.
-     * @param body
-     *            The request body as an InputStream.
+     * @param path The request path.
+     * @param httpMethod The HTTP method (GET, POST, etc.).
+     * @param params The query parameters.
+     * @param headers The request headers.
+     * @param body The request body as an InputStream.
      * @return A MethodResponse containing the result of processing the request.
-     * @throws MethodInvocationException
-     *             If an error occurs during method invocation.
-     * @throws UnreadableRequestBodyException
-     *             If the request body cannot be read.
-     * @throws ClassNotFoundException
-     *             If the controller class is not found.
+     * @throws MethodInvocationException If an error occurs during method invocation.
+     * @throws UnreadableRequestBodyException If the request body cannot be read.
+     * @throws ClassNotFoundException If the controller class is not found.
      */
     public MethodResponse processRequest(
             String path,
@@ -121,22 +114,15 @@ public class RequestProcessor {
     }
 
     /**
-     * Converts request parameters, headers, and body into an array of method
-     * parameters.
+     * Converts request parameters, headers, and body into an array of method parameters.
      *
-     * @param method
-     *            The method being invoked.
-     * @param headers
-     *            The request headers.
-     * @param queryParams
-     *            The query parameters.
-     * @param body
-     *            The request body as an InputStream.
-     * @param arguments
-     *            The list of method arguments and their types.
+     * @param method The method being invoked.
+     * @param headers The request headers.
+     * @param queryParams The query parameters.
+     * @param body The request body as an InputStream.
+     * @param arguments The list of method arguments and their types.
      * @return An array of method parameters.
-     * @throws IOException
-     *             If an error occurs during parameter conversion.
+     * @throws IOException If an error occurs during parameter conversion.
      */
     private Object[] getMethodParams(
             Method method,
@@ -175,11 +161,9 @@ public class RequestProcessor {
     /**
      * Reads the binary request body into a byte array.
      *
-     * @param inputStream
-     *            The request body as an InputStream.
+     * @param inputStream The request body as an InputStream.
      * @return The request body as a byte array.
-     * @throws IOException
-     *             If an error occurs while reading the request body.
+     * @throws IOException If an error occurs while reading the request body.
      */
     private byte[] readBinaryRequestBody(InputStream inputStream) throws IOException {
         try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
@@ -195,13 +179,10 @@ public class RequestProcessor {
     /**
      * Converts the request body to the specified type.
      *
-     * @param requestBody
-     *            The request body as a byte array.
-     * @param targetType
-     *            The target type to convert the request body to.
+     * @param requestBody The request body as a byte array.
+     * @param targetType The target type to convert the request body to.
      * @return The converted object.
-     * @throws IOException
-     *             If an error occurs during conversion.
+     * @throws IOException If an error occurs during conversion.
      */
     private Object convertRequestBodyToType(byte[] requestBody, Class<?> targetType)
             throws IOException {
@@ -213,14 +194,11 @@ public class RequestProcessor {
     }
 
     /**
-     * Converts a string value to the specified type. This is used as part of the
-     * logic of creating the method parameters. It is expected that header and query
-     * string parameters are primitives.
+     * Converts a string value to the specified type. This is used as part of the logic of creating
+     * the method parameters. It is expected that header and query string parameters are primitives.
      *
-     * @param value
-     *            The string value to convert.
-     * @param targetType
-     *            The target type to convert the value to.
+     * @param value The string value to convert.
+     * @param targetType The target type to convert the value to.
      * @return The converted object.
      */
     private static Object convertToType(String value, Class<?> targetType) {

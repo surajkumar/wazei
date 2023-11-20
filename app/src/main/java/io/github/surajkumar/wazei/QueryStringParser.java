@@ -17,10 +17,8 @@ public class QueryStringParser {
     /**
      * Extracts parameters from the query string of a given URI.
      *
-     * @param uri
-     *            The URI containing the query string.
-     * @return A Map representing the key-value pairs of parameters extracted from
-     *         the query string.
+     * @param uri The URI containing the query string.
+     * @return A Map representing the key-value pairs of parameters extracted from the query string.
      */
     protected static Map<String, String> getParametersFromQueryString(URI uri) {
         String query = uri.getQuery();
@@ -42,8 +40,7 @@ public class QueryStringParser {
     /**
      * Decodes a URL component using UTF-8 encoding.
      *
-     * @param component
-     *            The URL component to be decoded.
+     * @param component The URL component to be decoded.
      * @return The decoded string.
      */
     private static String decodeUrlComponent(String component) {

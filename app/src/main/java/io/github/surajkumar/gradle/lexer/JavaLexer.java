@@ -1,6 +1,7 @@
 package io.github.surajkumar.gradle.lexer;
 
 import io.github.surajkumar.gradle.lexer.token.Token;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

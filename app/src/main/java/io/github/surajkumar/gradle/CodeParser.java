@@ -1,12 +1,17 @@
 package io.github.surajkumar.gradle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.github.surajkumar.gradle.lexer.JavaLexer;
 import io.github.surajkumar.gradle.lexer.Lexer;
 import io.github.surajkumar.gradle.lexer.extractors.ClassExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.MethodExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.PackageNameExtractor;
 import io.github.surajkumar.gradle.lexer.token.Token;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CodeParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodeParser.class);

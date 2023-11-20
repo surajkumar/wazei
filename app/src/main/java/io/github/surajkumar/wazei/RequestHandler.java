@@ -4,18 +4,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
 import io.github.surajkumar.wazei.config.Config;
 import io.github.surajkumar.wazei.config.ConfigSearcher;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * Handles incoming HTTP requests and delegates processing to a
- * {@link RequestProcessor}.
+ * Handles incoming HTTP requests and delegates processing to a {@link RequestProcessor}.
  *
  * @author Suraj Kumar
  */
@@ -27,8 +29,7 @@ public class RequestHandler implements HttpHandler {
     /**
      * Constructs a RequestHandler with a given ConfigSearcher.
      *
-     * @param configSearcher
-     *            The ConfigSearcher to use for retrieving configurations.
+     * @param configSearcher The ConfigSearcher to use for retrieving configurations.
      */
     public RequestHandler(ConfigSearcher configSearcher) {
         this.configSearcher = configSearcher;
@@ -46,11 +47,8 @@ public class RequestHandler implements HttpHandler {
     /**
      * Processes an incoming HTTP request.
      *
-     * @param exchange
-     *            The HttpExchange object representing the incoming request and
-     *            response.
-     * @throws IOException
-     *             If an IO error occurs during request processing.
+     * @param exchange The HttpExchange object representing the incoming request and response.
+     * @throws IOException If an IO error occurs during request processing.
      */
     private void processRequest(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
@@ -94,14 +92,10 @@ public class RequestHandler implements HttpHandler {
     /**
      * Sends a JSON response to the client.
      *
-     * @param exchange
-     *            The HttpExchange object representing the response.
-     * @param statusCode
-     *            The HTTP status code for the response.
-     * @param responseObject
-     *            The object to be serialized to JSON and sent as the response body.
-     * @throws IOException
-     *             If an IO error occurs during response handling.
+     * @param exchange The HttpExchange object representing the response.
+     * @param statusCode The HTTP status code for the response.
+     * @param responseObject The object to be serialized to JSON and sent as the response body.
+     * @throws IOException If an IO error occurs during response handling.
      */
     private void sendJsonResponse(
             HttpExchange exchange, HTTPStatusCode statusCode, Object responseObject)
@@ -114,12 +108,9 @@ public class RequestHandler implements HttpHandler {
     /**
      * Sends an empty response to the client.
      *
-     * @param exchange
-     *            The HttpExchange object representing the response.
-     * @param statusCode
-     *            The HTTP status code for the response.
-     * @throws IOException
-     *             If an IO error occurs during response handling.
+     * @param exchange The HttpExchange object representing the response.
+     * @param statusCode The HTTP status code for the response.
+     * @throws IOException If an IO error occurs during response handling.
      */
     private void sendEmptyResponse(HttpExchange exchange, HTTPStatusCode statusCode)
             throws IOException {
@@ -129,10 +120,8 @@ public class RequestHandler implements HttpHandler {
     /**
      * Handles IO errors during request processing.
      *
-     * @param exchange
-     *            The HttpExchange object representing the response.
-     * @param e
-     *            The IOException that occurred.
+     * @param exchange The HttpExchange object representing the response.
+     * @param e The IOException that occurred.
      */
     private void handleError(HttpExchange exchange, IOException e) {
         try {
@@ -146,14 +135,10 @@ public class RequestHandler implements HttpHandler {
     /**
      * Sends an HTTP response to the client.
      *
-     * @param exchange
-     *            The HttpExchange object representing the response.
-     * @param statusCode
-     *            The HTTP status code for the response.
-     * @param response
-     *            The response body to be sent to the client.
-     * @throws IOException
-     *             If an IO error occurs during response handling.
+     * @param exchange The HttpExchange object representing the response.
+     * @param statusCode The HTTP status code for the response.
+     * @param response The response body to be sent to the client.
+     * @throws IOException If an IO error occurs during response handling.
      */
     private static void sendResponse(
             HttpExchange exchange, HTTPStatusCode statusCode, String response) throws IOException {

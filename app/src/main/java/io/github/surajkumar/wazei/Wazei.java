@@ -1,6 +1,7 @@
 package io.github.surajkumar.wazei;
 
 import io.github.surajkumar.wazei.config.ConfigLoader;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

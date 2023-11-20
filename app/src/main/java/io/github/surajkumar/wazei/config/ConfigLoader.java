@@ -2,6 +2,7 @@ package io.github.surajkumar.wazei.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;

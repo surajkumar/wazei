@@ -3,7 +3,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.22.0'
 }
 
-group = 'io.github.surajkumar'
+group = 'io.github.surajkumar.wazei'
 version = '1.0-SNAPSHOT'
 
 spotless {
@@ -12,8 +12,8 @@ spotless {
         googleJavaFormat()
                 .aosp()
                 .reflowLongStrings()
-                .formatJavadoc(false)
-                .reorderImports(false)
+                .formatJavadoc(true)
+                .reorderImports(true)
                 .groupArtifact('com.google.googlejavaformat:google-java-format')
         trimTrailingWhitespace()
         indentWithSpaces()
@@ -31,4 +31,6 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.0'
     implementation 'org.apache.logging.log4j:log4j-core:2.21.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.18.0'
+    implementation 'com.intellij:annotations:22.0.0'
+    implementation 'com.intellij.openapi:platform:22.0.0'
 }

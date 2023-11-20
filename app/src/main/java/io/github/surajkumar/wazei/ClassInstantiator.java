@@ -10,14 +10,14 @@ public class ClassInstantiator {
         Constructor<?> constructor = null;
         Constructor<?>[] constructors = clazz.getConstructors();
         int constructorParameterCount = Integer.MAX_VALUE;
-        for(Constructor<?> c : constructors) {
+        for (Constructor<?> c : constructors) {
             int paramCount = c.getParameterCount();
-            if(paramCount < constructorParameterCount) {
+            if (paramCount < constructorParameterCount) {
                 constructorParameterCount = paramCount;
                 constructor = c;
             }
         }
-        if(constructor != null && constructorParameterCount == 0) {
+        if (constructor != null && constructorParameterCount == 0) {
             try {
                 return constructor.newInstance();
             } catch (Exception e) {
@@ -26,5 +26,4 @@ public class ClassInstantiator {
         }
         throw new MethodInvocationException(clazz.getName() + " has no default constructor");
     }
-
 }
