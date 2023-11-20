@@ -12,13 +12,16 @@ public class JavaTokenDescriptions {
         tokenDescription = new TokenDescription();
 
         /* Comments */
-        tokenDescription.register(Pattern.compile("/\\*([^*]|(\\*+[^*/]))*\\*+/"), "MULTI_LINE_COMMENT");
+        tokenDescription.register(
+                Pattern.compile("/\\*([^*]|(\\*+[^*/]))*\\*+/"), "MULTI_LINE_COMMENT");
         tokenDescription.register(Pattern.compile("//.*"), "SINGLE_LINE_COMMENT");
 
         /* Keywords */
-        tokenDescription.register(Pattern.compile("public|private|protected"), "ACCESS_MODIFIER_KEYWORD");
+        tokenDescription.register(
+                Pattern.compile("public|private|protected"), "ACCESS_MODIFIER_KEYWORD");
         tokenDescription.register(Pattern.compile("int|double|float|String"), "DATA_TYPE_KEYWORD");
-        //tokenDescription.register(Pattern.compile("exports|opens|to|transitive"), "MODULE_DIRECTIVE");
+        // tokenDescription.register(Pattern.compile("exports|opens|to|transitive"),
+        // "MODULE_DIRECTIVE");
         tokenDescription.register(Pattern.compile("if"), "IF_KEYWORD");
         tokenDescription.register(Pattern.compile("else"), "ELSE_KEYWORD");
         tokenDescription.register(Pattern.compile("while"), "WHILE_KEYWORD");
@@ -70,7 +73,8 @@ public class JavaTokenDescriptions {
 
         /* Operators */
         // Compound Assignment
-        tokenDescription.register(Pattern.compile("\\+=|-=|\\*=|/=|%=|\\^="), "COMPOUND_ASSIGNMENT_OPERATOR");
+        tokenDescription.register(
+                Pattern.compile("\\+=|-=|\\*=|/=|%=|\\^="), "COMPOUND_ASSIGNMENT_OPERATOR");
         tokenDescription.register(Pattern.compile("\\+"), "PLUS_OPERATOR");
         tokenDescription.register(Pattern.compile("-"), "MINUS_OPERATOR");
         tokenDescription.register(Pattern.compile("\\*"), "MULTIPLICATION_OPERATOR");
@@ -122,7 +126,8 @@ public class JavaTokenDescriptions {
         tokenDescription.register(Pattern.compile("\\.\\.\\."), "VARARGS");
         tokenDescription.register(Pattern.compile("->"), "LAMBDA_ARROW");
         tokenDescription.register(Pattern.compile("::"), "METHOD_REFERENCE");
-        tokenDescription.register(Pattern.compile("\\\\u[0-9A-Fa-f]{4}"), "UNICODE_ESCAPE_SEQUENCE");
+        tokenDescription.register(
+                Pattern.compile("\\\\u[0-9A-Fa-f]{4}"), "UNICODE_ESCAPE_SEQUENCE");
         tokenDescription.register(Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*"), "IDENTIFIER");
     }
 

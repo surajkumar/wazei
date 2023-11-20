@@ -8,11 +8,11 @@ import java.util.List;
 public class ClassExtractor {
 
     public static String getClassName(List<Token> tokens) {
-        for(int i = 0; i < tokens.size(); i++) {
+        for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-            if(token.name().equals("CLASS_KEYWORD") && (i < tokens.size() - 1)) {
-                Token expectedIdentifier = tokens.get(i+1);
-                if(expectedIdentifier.name().equals("IDENTIFIER")) {
+            if (token.name().equals("CLASS_KEYWORD") && (i < tokens.size() - 1)) {
+                Token expectedIdentifier = tokens.get(i + 1);
+                if (expectedIdentifier.name().equals("IDENTIFIER")) {
                     return expectedIdentifier.value();
                 }
             }
@@ -22,15 +22,15 @@ public class ClassExtractor {
 
     public static List<String> getImports(List<Token> tokens) {
         List<String> imports = new ArrayList<>();
-        for(int i = 0; i < tokens.size(); i++) {
+        for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-            if(token.name().equals("CLASS_KEYWORD")) {
+            if (token.name().equals("CLASS_KEYWORD")) {
                 break;
             }
-            if(token.name().equals("IMPORT_KEYWORD")) {
+            if (token.name().equals("IMPORT_KEYWORD")) {
                 token = tokens.get(++i);
                 StringBuilder sb = new StringBuilder();
-                while(!token.name().equals("SEMICOLON")) {
+                while (!token.name().equals("SEMICOLON")) {
                     sb.append(token.value());
                     token = tokens.get(++i);
                 }
@@ -42,16 +42,16 @@ public class ClassExtractor {
 
     public static String getClassComments(List<Token> tokens) {
         int stopIndex = 0;
-        for(int i = 0; i < tokens.size(); i++) {
+        for (int i = 0; i < tokens.size(); i++) {
             Token token = tokens.get(i);
-            if(token.name().equals("CLASS_KEYWORD") && (i < tokens.size() - 1)) {
+            if (token.name().equals("CLASS_KEYWORD") && (i < tokens.size() - 1)) {
                 stopIndex = i;
                 break;
             }
         }
-        for(int i = 0; i < stopIndex; i++) {
+        for (int i = 0; i < stopIndex; i++) {
             Token token = tokens.get(i);
-            if(token.name().equals("MULTI_LINE_COMMENT")) {
+            if (token.name().equals("MULTI_LINE_COMMENT")) {
                 return token.value();
             }
         }

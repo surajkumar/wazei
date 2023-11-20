@@ -1,12 +1,14 @@
 package io.github.surajkumar.gradle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.github.surajkumar.gradle.lexer.JavaLexer;
 import io.github.surajkumar.gradle.lexer.Lexer;
 import io.github.surajkumar.gradle.lexer.extractors.ClassExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.MethodExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.PackageNameExtractor;
 import io.github.surajkumar.gradle.lexer.token.Token;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,7 @@ public class CodeParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodeParser.class);
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final List<Config> CONFIGS = new ArrayList<>();
+
     public static void main(String[] args) throws Exception {
         LOGGER.info("Scanning src/main");
 
@@ -37,7 +40,7 @@ public class CodeParser {
                     } catch (IOException e) {
                         LOGGER.warn("Could not open {}: {}", file.getFileName(), e.getMessage());
                     }
-                    if(source != null) {
+                    if (source != null) {
                         run(source);
                     }
                 });
@@ -54,22 +57,26 @@ public class CodeParser {
         List<Token> tokens = tokenizer.tokenize(sourceCode);
         String packageName = PackageNameExtractor.getPackageName(tokens);
         String className = ClassExtractor.getClassName(tokens);
-        if(className.endsWith("Controller")) {
+        if (className.endsWith("Controller")) {
             LOGGER.info("Parsing {}.{}", packageName, className);
             List<String> classImports = ClassExtractor.getImports(tokens);
             fixImports(packageName, classImports);
             List<MethodExtractor.Method> methods = MethodExtractor.getMethods(tokens);
             List<Metadata> metadata = new ArrayList<>();
-            for(MethodExtractor.Method method : methods) {
-                if(method.access().equals("public")) {
+            for (MethodExtractor.Method method : methods) {
+                if (method.access().equals("public")) {
                     Map<String, String> keys = extractKeyValuePairs(method.documentation());
-                    if(!keys.isEmpty()) {
-                        if(!checkParameterNames(method.arguments())) {
+                    if (!keys.isEmpty()) {
+                        if (!checkParameterNames(method.arguments())) {
                             throw new RuntimeException(
                                     "Method parameter names must end with either Header, Param or Body, error in %s.%s#%s"
                                             .formatted(packageName, className, method.name()));
                         }
-                        metadata.add(new Metadata(method.name(), fixType(packageName, method.type()), fixArgs(packageName, method.arguments()), keys));
+                        metadata.add(new Metadata(
+                                method.name(),
+                                fixType(packageName, method.type()),
+                                fixArgs(packageName, method.arguments()),
+                                keys));
                     }
                 } else {
                     LOGGER.trace("Skipping non-public method " + method.name());
@@ -79,7 +86,8 @@ public class CodeParser {
         }
     }
 
-    private static List<MethodExtractor.Argument> fixArgs(String packageName, List<MethodExtractor.Argument> args) {
+    private static List<MethodExtractor.Argument> fixArgs(
+            String packageName, List<MethodExtractor.Argument> args) {
         List<MethodExtractor.Argument> arguments = new ArrayList<>();
         for (MethodExtractor.Argument arg : args) {
             String type = fixType(packageName, arg.type());
@@ -122,8 +130,7 @@ public class CodeParser {
                 || className.equals("Runnable")
                 || className.equals("System")
                 || className.equals("ClassLoader")
-                || className.equals("Enum")
-                ;
+                || className.equals("Enum");
     }
 
     private static boolean isPrimitive(String className) {
@@ -134,38 +141,34 @@ public class CodeParser {
                 || className.equals("double")
                 || className.equals("char")
                 || className.equals("boolean")
-                || className.equals("byte")
-                ;
+                || className.equals("byte");
     }
 
-
     private static boolean checkParameterNames(List<MethodExtractor.Argument> arguments) {
-        for(MethodExtractor.Argument argument : arguments) {
+        for (MethodExtractor.Argument argument : arguments) {
             boolean matchedPrefix = false;
             String name = argument.name();
-            for(MethodNamePrefix prefix : MethodNamePrefix.values()) {
-                if(name.endsWith(prefix.toString())) {
+            for (MethodNamePrefix prefix : MethodNamePrefix.values()) {
+                if (name.endsWith(prefix.toString())) {
                     matchedPrefix = true;
                     break;
                 }
             }
-            if(!matchedPrefix) {
+            if (!matchedPrefix) {
                 return false;
             }
         }
         return true;
     }
 
-    private record Config(String packageName,
-                          String className,
-                          List<String> imports,
-                          List<Metadata> metadata) {}
+    private record Config(
+            String packageName, String className, List<String> imports, List<Metadata> metadata) {}
 
-    private record Metadata(String methodName,
-                        String returnType,
-                        List<MethodExtractor.Argument> arguments,
-                        Map<String, String> config
-                        ) {}
+    private record Metadata(
+            String methodName,
+            String returnType,
+            List<MethodExtractor.Argument> arguments,
+            Map<String, String> config) {}
 
     private static Map<String, String> extractKeyValuePairs(String input) {
         Map<String, String> keyValuePairs = new HashMap<>();

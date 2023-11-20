@@ -1,4 +1,4 @@
-package io.github.surajkumar.wazei.bootstrap.config;
+package io.github.surajkumar.wazei.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

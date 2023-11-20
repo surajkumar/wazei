@@ -1,4 +1,4 @@
-package io.github.surajkumar.wazei.bootstrap.config;
+package io.github.surajkumar.wazei.config;
 
 import java.util.List;
 import java.util.Map;
@@ -11,11 +11,11 @@ public class ConfigSearcher {
     }
 
     public Config getConfigForPath(String path) {
-        for(Config configuration : configs) {
-            for(Metadata metadata : configuration.getMetadata()) {
+        for (Config configuration : configs) {
+            for (Metadata metadata : configuration.getMetadata()) {
                 Map<String, String> config = metadata.getConfig();
-                if(config.containsKey("path")) {
-                    if(config.get("path").equalsIgnoreCase(path)) {
+                if (config.containsKey("path")) {
+                    if (config.get("path").equalsIgnoreCase(path)) {
                         return configuration;
                     }
                 }
@@ -23,7 +23,4 @@ public class ConfigSearcher {
         }
         return null;
     }
-
-
-
 }

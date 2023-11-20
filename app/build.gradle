@@ -1,9 +1,20 @@
 plugins {
     id 'java'
+    id 'com.diffplug.spotless' version '6.22.0'
 }
 
 group = 'io.github.surajkumar'
 version = '1.0-SNAPSHOT'
+
+spotless {
+    java {
+        importOrder()
+        palantirJavaFormat('2.9.0').style("AOSP")
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+}
 
 repositories {
     mavenCentral()

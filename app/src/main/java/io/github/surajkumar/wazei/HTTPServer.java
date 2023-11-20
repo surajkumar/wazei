@@ -1,8 +1,9 @@
-package io.github.surajkumar.wazei.web;
+package io.github.surajkumar.wazei;
 
 import com.sun.net.httpserver.HttpServer;
-import io.github.surajkumar.wazei.bootstrap.config.Config;
-import io.github.surajkumar.wazei.bootstrap.config.ConfigSearcher;
+
+import io.github.surajkumar.wazei.config.Config;
+import io.github.surajkumar.wazei.config.ConfigSearcher;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

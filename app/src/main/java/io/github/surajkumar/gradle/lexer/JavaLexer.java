@@ -22,10 +22,15 @@ public class JavaLexer implements Lexer {
         while (position < input.length()) {
             char currentChar = input.charAt(position);
 
-            if (currentChar == ' ' || currentChar == '\t' || currentChar == '\n' || currentChar == '\r') {
+            if (currentChar == ' '
+                    || currentChar == '\t'
+                    || currentChar == '\n'
+                    || currentChar == '\r') {
                 // Skip whitespace
                 position++;
-            } else if (currentChar == '/' && (position + 1 < input.length()) && input.charAt(position + 1) == '/') {
+            } else if (currentChar == '/'
+                    && (position + 1 < input.length())
+                    && input.charAt(position + 1) == '/') {
                 // Handle single-line comment
                 int endOfLine = input.indexOf('\n', position);
                 if (endOfLine == -1) {
@@ -34,7 +39,9 @@ public class JavaLexer implements Lexer {
                 String comment = input.substring(position, endOfLine);
                 tokens.add(new Token("SINGLE_LINE_COMMENT", comment, position));
                 position = endOfLine;
-            } else if (currentChar == '/' && (position + 1 < input.length()) && input.charAt(position + 1) == '*') {
+            } else if (currentChar == '/'
+                    && (position + 1 < input.length())
+                    && input.charAt(position + 1) == '*') {
                 // Handle multi-line comment
                 int endComment = input.indexOf("*/", position + 2);
                 if (endComment == -1) {
@@ -51,7 +58,8 @@ public class JavaLexer implements Lexer {
                 // Handle string literal
                 int endOfString = position + 1;
                 boolean escapeSequence = false;
-                while (endOfString < input.length() && (input.charAt(endOfString) != '"' || escapeSequence)) {
+                while (endOfString < input.length()
+                        && (input.charAt(endOfString) != '"' || escapeSequence)) {
                     if (input.charAt(endOfString) == '\\') {
                         escapeSequence = !escapeSequence;
                     } else {
@@ -70,7 +78,10 @@ public class JavaLexer implements Lexer {
             } else {
                 boolean matched = false;
 
-                for (Map.Entry<String, Pattern> entry : tokenDescriptions.getTokenDescription().getDescriptions().entrySet()) {
+                for (Map.Entry<String, Pattern> entry : tokenDescriptions
+                        .getTokenDescription()
+                        .getDescriptions()
+                        .entrySet()) {
                     String identifier = entry.getKey();
                     Pattern pattern = entry.getValue();
                     Matcher matcher = pattern.matcher(input);

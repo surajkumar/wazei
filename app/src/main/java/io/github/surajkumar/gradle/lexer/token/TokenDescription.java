@@ -12,7 +12,7 @@ public class TokenDescription {
     }
 
     public void register(Pattern regex, String name) {
-        if(descriptions.containsKey(name)) {
+        if (descriptions.containsKey(name)) {
             throw new IllegalArgumentException(name + " has already been registered");
         }
         descriptions.put(name, regex);
