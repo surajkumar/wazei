@@ -87,16 +87,7 @@ public class RequestProcessor {
                     Method method =
                             MethodInvoker.findMatchingMethod(
                                     controllerClass, methodName, returnType);
-                    Object instance;
-                    try {
-                        // Initialize the controller class object
-                        // TODO: Search for a 0 arg constructor
-                        // TODO: Future coolness: Can we auto create controller dependencies?
-                        instance = controllerClass.getDeclaredConstructors()[0].newInstance();
-                    } catch (Exception e) {
-                        throw new MethodInvocationException(
-                                "Unable to construct instance: " + e.getMessage());
-                    }
+                    Object instance = ClassInstantiator.create(controllerClass);
 
                     // Check that the method we found matches what we expect for query params
                     // This will not take into consideration other param types e.g. Header and Body
