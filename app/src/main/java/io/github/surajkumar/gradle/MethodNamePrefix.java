@@ -3,8 +3,7 @@ package io.github.surajkumar.gradle;
 public enum MethodNamePrefix {
     HEADER("Header"),
     PARAMETER("Param"),
-    BODY("Body")
-    ;
+    BODY("Body");
 
     private final String prefix;
 

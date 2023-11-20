@@ -1,4 +1,4 @@
-package io.github.surajkumar.wazei.bootstrap.config;
+package io.github.surajkumar.wazei.config;
 
 public class Argument {
     private String type;

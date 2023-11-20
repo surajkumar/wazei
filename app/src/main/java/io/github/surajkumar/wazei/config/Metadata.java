@@ -1,4 +1,4 @@
-package io.github.surajkumar.wazei.bootstrap.config;
+package io.github.surajkumar.wazei.config;
 
 import java.util.List;
 import java.util.Map;
