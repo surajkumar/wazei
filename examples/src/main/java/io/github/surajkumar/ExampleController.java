@@ -19,8 +19,8 @@ public class ExampleController {
      * $path=/auth
      * ---
      */
-    public void printHeader(String AuthorizationHeader) {
-        System.out.println(AuthorizationHeader);
+    public void printHeader(String authorizationHeader) {
+        System.out.println(authorizationHeader);
     }
 
     /**

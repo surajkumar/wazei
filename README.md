@@ -48,7 +48,7 @@ public class Main {
 4. **Build and Run:**
    Run `gradle build` to initiate parsing and initialization at **Compile Time**. After building, generate the `.jar` using `gradle jar`.
 
-## [See Example](src/main/java/io/github/surajkumar/example/ExampleController.java)
+## [See Example](examples/src/main/java/io/github/surajkumar/ExampleController.java)
 
 
 ## Disclaimer
