@@ -16,14 +16,3 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.21.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j18-impl:2.18.0'
 }
-
-tasks.withType(JavaCompile).each {
-    it.options.compilerArgs.add('--enable-preview')
-}
-
-tasks.register('parser', JavaExec) {
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'io.github.surajkumar.gradle.CodeParser'
-}
-
-build.dependsOn parser

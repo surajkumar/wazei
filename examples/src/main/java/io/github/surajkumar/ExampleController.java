@@ -1,4 +1,4 @@
-package io.github.surajkumar.example;
+package io.github.surajkumar;
 
 public class ExampleController {
 
