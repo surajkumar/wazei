@@ -12,6 +12,17 @@
       "content-type" : "application/json"
     }
   }, {
+    "methodName" : "printHeader",
+    "returnType" : "void",
+    "arguments" : [ {
+      "type" : "java.lang.String",
+      "name" : "authorizationHeader"
+    } ],
+    "config" : {
+      "path" : "/auth",
+      "method" : "get"
+    }
+  }, {
     "methodName" : "createUser",
     "returnType" : "void",
     "arguments" : [ {

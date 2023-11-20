@@ -68,7 +68,7 @@ public class RequestHandler implements HttpHandler {
             String method = exchange.getRequestMethod();
             Map<String, String> queryParameters =
                     QueryStringParser.getParametersFromQueryString(exchange.getRequestURI());
-            Headers headers = exchange.getResponseHeaders();
+            Headers headers = exchange.getRequestHeaders();
             InputStream body = exchange.getRequestBody();
 
             RequestProcessor processor = new RequestProcessor(config);

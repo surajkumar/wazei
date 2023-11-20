@@ -15,6 +15,16 @@ public class ExampleController {
 
     /**
      * ---
+     * $method=get
+     * $path=/auth
+     * ---
+     */
+    public void printHeader(String AuthorizationHeader) {
+        System.out.println(AuthorizationHeader);
+    }
+
+    /**
+     * ---
      * $method=post
      * $path=/create
      * ---

@@ -27,7 +27,7 @@ public class WazeiRunner {
      * @throws Exception
      *             If an error occurs while initializing or starting the server.
      */
-    public static void run() throws Exception {
+    public static void main(String[] args) throws Exception {
         Wazei.init(HOST, PORT);
     }
 }
