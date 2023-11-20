@@ -1,7 +1,6 @@
 package io.github.surajkumar.gradle.lexer.extractors;
 
 import io.github.surajkumar.gradle.lexer.token.Token;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +45,14 @@ public class MethodExtractor {
                             documentation = expectedDocumentation.value();
                         }
 
-                        Method method = new Method(
-                                i,
-                                documentation,
-                                token.value(),
-                                type.value(),
-                                name.value(),
-                                arguments);
+                        Method method =
+                                new Method(
+                                        i,
+                                        documentation,
+                                        token.value(),
+                                        type.value(),
+                                        name.value(),
+                                        arguments);
                         methods.add(method);
                     }
                 }

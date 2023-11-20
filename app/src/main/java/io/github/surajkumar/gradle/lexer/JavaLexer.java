@@ -1,7 +1,6 @@
 package io.github.surajkumar.gradle.lexer;
 
 import io.github.surajkumar.gradle.lexer.token.Token;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -78,10 +77,8 @@ public class JavaLexer implements Lexer {
             } else {
                 boolean matched = false;
 
-                for (Map.Entry<String, Pattern> entry : tokenDescriptions
-                        .getTokenDescription()
-                        .getDescriptions()
-                        .entrySet()) {
+                for (Map.Entry<String, Pattern> entry :
+                        tokenDescriptions.getTokenDescription().getDescriptions().entrySet()) {
                     String identifier = entry.getKey();
                     Pattern pattern = entry.getValue();
                     Matcher matcher = pattern.matcher(input);

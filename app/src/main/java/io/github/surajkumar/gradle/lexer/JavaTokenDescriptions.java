@@ -1,7 +1,6 @@
 package io.github.surajkumar.gradle.lexer;
 
 import io.github.surajkumar.gradle.lexer.token.TokenDescription;
-
 import java.util.Set;
 import java.util.regex.Pattern;
 

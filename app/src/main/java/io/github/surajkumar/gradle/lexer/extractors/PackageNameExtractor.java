@@ -1,7 +1,6 @@
 package io.github.surajkumar.gradle.lexer.extractors;
 
 import io.github.surajkumar.gradle.lexer.token.Token;
-
 import java.util.List;
 
 public class PackageNameExtractor {

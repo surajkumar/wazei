@@ -9,7 +9,12 @@ version = '1.0-SNAPSHOT'
 spotless {
     java {
         importOrder()
-        palantirJavaFormat('2.9.0').style("AOSP")
+        googleJavaFormat()
+                .aosp()
+                .reflowLongStrings()
+                .formatJavadoc(false)
+                .reorderImports(false)
+                .groupArtifact('com.google.googlejavaformat:google-java-format')
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

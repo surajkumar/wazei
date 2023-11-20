@@ -1,17 +1,12 @@
 package io.github.surajkumar.gradle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.github.surajkumar.gradle.lexer.JavaLexer;
 import io.github.surajkumar.gradle.lexer.Lexer;
 import io.github.surajkumar.gradle.lexer.extractors.ClassExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.MethodExtractor;
 import io.github.surajkumar.gradle.lexer.extractors.PackageNameExtractor;
 import io.github.surajkumar.gradle.lexer.token.Token;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CodeParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(CodeParser.class);
@@ -33,17 +30,21 @@ public class CodeParser {
         Files.walk(Path.of("src/main"))
                 .filter(Files::isRegularFile)
                 .filter(file -> file.toString().endsWith(".java"))
-                .forEach(file -> {
-                    String source = null;
-                    try {
-                        source = Files.readString(file);
-                    } catch (IOException e) {
-                        LOGGER.warn("Could not open {}: {}", file.getFileName(), e.getMessage());
-                    }
-                    if (source != null) {
-                        run(source);
-                    }
-                });
+                .forEach(
+                        file -> {
+                            String source = null;
+                            try {
+                                source = Files.readString(file);
+                            } catch (IOException e) {
+                                LOGGER.warn(
+                                        "Could not open {}: {}",
+                                        file.getFileName(),
+                                        e.getMessage());
+                            }
+                            if (source != null) {
+                                run(source);
+                            }
+                        });
 
         Files.writeString(
                 Path.of("src/main/resources/wazei.json"),
@@ -72,11 +73,12 @@ public class CodeParser {
                                     "Method parameter names must end with either Header, Param or Body, error in %s.%s#%s"
                                             .formatted(packageName, className, method.name()));
                         }
-                        metadata.add(new Metadata(
-                                method.name(),
-                                fixType(packageName, method.type()),
-                                fixArgs(packageName, method.arguments()),
-                                keys));
+                        metadata.add(
+                                new Metadata(
+                                        method.name(),
+                                        fixType(packageName, method.type()),
+                                        fixArgs(packageName, method.arguments()),
+                                        keys));
                     }
                 } else {
                     LOGGER.trace("Skipping non-public method " + method.name());
