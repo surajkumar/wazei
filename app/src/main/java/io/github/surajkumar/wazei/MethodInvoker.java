@@ -60,7 +60,7 @@ public class MethodInvoker {
             Class<?> instance, String methodName, String returnType) {
         for (Method method : instance.getDeclaredMethods()) {
             if (method.getName().equals(methodName)
-                    && method.getReturnType().getName().equals(returnType)) {
+                    && method.getReturnType().getName().contains(returnType)) {
                 return method;
             }
         }

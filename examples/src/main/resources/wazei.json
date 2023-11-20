@@ -1,5 +1,19 @@
 [ {
   "packageName" : "io.github.surajkumar",
+  "className" : "CustomHeadersAndCodeExampleController",
+  "imports" : [ "java.util.HashMap", "java.util.Map" ],
+  "metadata" : [ {
+    "methodName" : "example",
+    "returnType" : "io.github.surajkumar.Example",
+    "arguments" : [ ],
+    "config" : {
+      "path" : "/example",
+      "method" : "get",
+      "content-type" : "application/text"
+    }
+  } ]
+}, {
+  "packageName" : "io.github.surajkumar",
   "className" : "ExampleController",
   "imports" : [ ],
   "metadata" : [ {

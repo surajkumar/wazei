@@ -13,6 +13,15 @@ public enum HTTPStatusCode {
         this.value = value;
     }
 
+    public static HTTPStatusCode ofCode(int code) {
+        for (HTTPStatusCode statusCode : HTTPStatusCode.values()) {
+            if (statusCode.code == code) {
+                return statusCode;
+            }
+        }
+        return null;
+    }
+
     public int getCode() {
         return code;
     }

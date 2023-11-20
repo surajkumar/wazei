@@ -1,6 +1,8 @@
 package io.github.surajkumar.wazei;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -59,7 +63,11 @@ public class RequestHandler implements HttpHandler {
         try {
             Config config = configSearcher.getConfigForPath(path);
             if (config == null) {
-                sendResponse(exchange, HTTPStatusCode.NOT_FOUND, "Page Not Found");
+                sendResponse(
+                        exchange,
+                        HTTPStatusCode.NOT_FOUND.getCode(),
+                        new HashMap<>(),
+                        "Page Not Found");
                 return;
             }
 
@@ -80,11 +88,19 @@ public class RequestHandler implements HttpHandler {
                     sendEmptyResponse(exchange, HTTPStatusCode.OK);
                 }
             } else {
-                sendResponse(exchange, HTTPStatusCode.BAD_REQUEST, "Bad request");
+                sendResponse(
+                        exchange,
+                        HTTPStatusCode.BAD_REQUEST.getCode(),
+                        new HashMap<>(),
+                        "Bad request");
             }
 
         } catch (Exception e) {
-            sendResponse(exchange, HTTPStatusCode.INTERNAL_SERVER_ERROR, "Internal Server Error");
+            sendResponse(
+                    exchange,
+                    HTTPStatusCode.INTERNAL_SERVER_ERROR.getCode(),
+                    new HashMap<>(),
+                    "Internal Server Error");
             LOGGER.error("Error processing request", e);
         }
     }
@@ -100,9 +116,38 @@ public class RequestHandler implements HttpHandler {
     private void sendJsonResponse(
             HttpExchange exchange, HTTPStatusCode statusCode, Object responseObject)
             throws IOException {
-        String jsonResponse =
-                OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(responseObject);
-        sendResponse(exchange, statusCode, jsonResponse);
+
+        Map<String, String> headers = new HashMap<>();
+
+        String jsonResponse = OBJECT_MAPPER.writeValueAsString(responseObject);
+
+        /* Parse for any headers or response codes */
+        JsonNode jsonNode = OBJECT_MAPPER.readTree(jsonResponse);
+
+        if (jsonNode.has("httpHeaders") && jsonNode.get("httpHeaders").isObject()) {
+            JsonNode headersNode = jsonNode.get("httpHeaders");
+            Iterator<Map.Entry<String, JsonNode>> fields = headersNode.fields();
+            while (fields.hasNext()) {
+                Map.Entry<String, JsonNode> entry = fields.next();
+                String key = entry.getKey();
+                JsonNode value = entry.getValue();
+                headers.put(key, value.asText());
+            }
+            ((ObjectNode) jsonNode).remove("httpHeaders");
+        }
+
+        int status = statusCode.getCode();
+
+        if (jsonNode.has("httpStatusCode")) {
+            try {
+                JsonNode statusNode = jsonNode.get("httpStatusCode");
+                status = statusNode.intValue();
+                ((ObjectNode) jsonNode).remove("httpStatusCode");
+            } catch (Exception ignore) {
+            }
+        }
+
+        sendResponse(exchange, status, headers, jsonNode.toPrettyString());
     }
 
     /**
@@ -114,7 +159,7 @@ public class RequestHandler implements HttpHandler {
      */
     private void sendEmptyResponse(HttpExchange exchange, HTTPStatusCode statusCode)
             throws IOException {
-        sendResponse(exchange, statusCode, "");
+        sendResponse(exchange, statusCode.getCode(), new HashMap<>(), "");
     }
 
     /**
@@ -125,7 +170,11 @@ public class RequestHandler implements HttpHandler {
      */
     private void handleError(HttpExchange exchange, IOException e) {
         try {
-            sendResponse(exchange, HTTPStatusCode.INTERNAL_SERVER_ERROR, "Internal Server Error");
+            sendResponse(
+                    exchange,
+                    HTTPStatusCode.INTERNAL_SERVER_ERROR.getCode(),
+                    new HashMap<>(),
+                    "Internal Server Error");
             LOGGER.error("IO error while processing request", e);
         } catch (IOException ioException) {
             LOGGER.error("Error sending error response", ioException);
@@ -141,8 +190,12 @@ public class RequestHandler implements HttpHandler {
      * @throws IOException If an IO error occurs during response handling.
      */
     private static void sendResponse(
-            HttpExchange exchange, HTTPStatusCode statusCode, String response) throws IOException {
-        exchange.sendResponseHeaders(statusCode.getCode(), response.length());
+            HttpExchange exchange, int statusCode, Map<String, String> headers, String response)
+            throws IOException {
+
+        headers.forEach((k, v) -> exchange.getResponseHeaders().add(k, v));
+        exchange.sendResponseHeaders(statusCode, response.length());
+
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response.getBytes());
         }
