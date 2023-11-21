@@ -165,7 +165,7 @@ public class RequestProcessor {
      * @return The request body as a byte array.
      * @throws IOException If an error occurs while reading the request body.
      */
-    private byte[] readBinaryRequestBody(InputStream inputStream) throws IOException {
+    public static byte[] readBinaryRequestBody(InputStream inputStream) throws IOException {
         try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[1024];
             int bytesRead;
@@ -184,7 +184,7 @@ public class RequestProcessor {
      * @return The converted object.
      * @throws IOException If an error occurs during conversion.
      */
-    private Object convertRequestBodyToType(byte[] requestBody, Class<?> targetType)
+    public static Object convertRequestBodyToType(byte[] requestBody, Class<?> targetType)
             throws IOException {
         if (targetType == byte[].class) {
             return requestBody;
@@ -201,15 +201,17 @@ public class RequestProcessor {
      * @param targetType The target type to convert the value to.
      * @return The converted object.
      */
-    private static Object convertToType(String value, Class<?> targetType) {
-        if (targetType == Integer.class) {
+    public static Object convertToType(String value, Class<?> targetType) {
+        if (targetType == Integer.class || targetType.getName().equals("int")) {
             return Integer.parseInt(value);
-        } else if (targetType == Double.class) {
+        } else if (targetType == Double.class || targetType.getName().equals("double")) {
             return Double.parseDouble(value);
-        } else if (targetType == Float.class) {
+        } else if (targetType == Float.class || targetType.getName().equals("float")) {
             return Float.parseFloat(value);
-        } else {
+        } else if (targetType == String.class) {
             return value;
+        } else {
+            throw new RuntimeException("Unknown type: " + targetType);
         }
     }
 }

@@ -7,7 +7,7 @@ group = 'io.github.surajkumar'
 version = '1.0-SNAPSHOT'
 
 application {
-    mainClass = 'io.github.surajkumar.wazei.WazeiRunner'
+    mainClass = 'io.github.surajkumar.wazei.WazeiRunnerNoConfig'
 }
 
 repositories {

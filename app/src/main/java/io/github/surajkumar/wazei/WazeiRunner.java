@@ -1,5 +1,8 @@
 package io.github.surajkumar.wazei;
 
+import io.github.surajkumar.wazei.config.ConfigLoader;
+import io.github.surajkumar.wazei.config.ConfigSearcher;
+
 /**
  * A simple runner class for starting the Wazei HTTP server with default or configurable settings.
  *
@@ -22,6 +25,6 @@ public class WazeiRunner {
      * @throws Exception If an error occurs while initializing or starting the server.
      */
     public static void main(String[] args) throws Exception {
-        Wazei.init(HOST, PORT);
+        Wazei.init(HOST, PORT, new RequestHandler(new ConfigSearcher(ConfigLoader.loadConfig())));
     }
 }

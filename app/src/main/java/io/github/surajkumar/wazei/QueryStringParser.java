@@ -20,7 +20,7 @@ public class QueryStringParser {
      * @param uri The URI containing the query string.
      * @return A Map representing the key-value pairs of parameters extracted from the query string.
      */
-    protected static Map<String, String> getParametersFromQueryString(URI uri) {
+    public static Map<String, String> getParametersFromQueryString(URI uri) {
         String query = uri.getQuery();
         Map<String, String> parameters = new HashMap<>();
         if (query != null) {

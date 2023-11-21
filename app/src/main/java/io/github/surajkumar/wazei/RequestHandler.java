@@ -113,7 +113,7 @@ public class RequestHandler implements HttpHandler {
      * @param responseObject The object to be serialized to JSON and sent as the response body.
      * @throws IOException If an IO error occurs during response handling.
      */
-    private void sendJsonResponse(
+    public static void sendJsonResponse(
             HttpExchange exchange, HTTPStatusCode statusCode, Object responseObject)
             throws IOException {
 
