@@ -50,6 +50,16 @@ public class Main {
 
 ## [See Example](examples/src/main/java/io/github/surajkumar/ExampleController.java)
 
+You can also creates controllers without the comments using the `WazeiRunnerNoConfig`:
+
+```java
+public class HelloController {
+   public String greet(String name) {
+     return "Hello, %s!".formatted(nameParam);
+   }
+}
+```
+To call this controller simply visit: http://localhost:8080/HelloController/greet?name=Bob
 
 ## Disclaimer
 Please be aware that this repository is still in its early stages of development. Continuous enhancements and improvements will be made over time to align with project needs and requirements.
