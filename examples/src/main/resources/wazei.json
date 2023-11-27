@@ -69,4 +69,9 @@
       "content-type" : "application/text"
     }
   } ]
+}, {
+  "packageName" : "io.github.surajkumar",
+  "className" : "ExampleNoDocsController",
+  "imports" : [ ],
+  "metadata" : [ ]
 } ]

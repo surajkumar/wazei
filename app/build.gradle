@@ -26,6 +26,12 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.microhttp:microhttp:0.10'
+    implementation 'dev.mccue:microhttp-handler:0.0.4'
+    implementation 'dev.mccue:urlparameters:0.0.1'
+    implementation 'dev.mccue:reasonphrase:1.0.0'
+    implementation 'dev.mccue:microhttp-json:0.0.1'
+
     implementation 'com.fasterxml.jackson.core:jackson-core:2.16.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.0'

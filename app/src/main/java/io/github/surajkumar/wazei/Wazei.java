@@ -1,9 +1,7 @@
 package io.github.surajkumar.wazei;
 
 import com.sun.net.httpserver.HttpHandler;
-import io.github.surajkumar.wazei.config.ConfigLoader;
 
-import io.github.surajkumar.wazei.config.ConfigSearcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

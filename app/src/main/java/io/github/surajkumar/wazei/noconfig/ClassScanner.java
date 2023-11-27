@@ -14,7 +14,8 @@ public class ClassScanner {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Enumeration<URL> resources = classLoader.getResources("");
         while (resources.hasMoreElements()) {
-            classes.addAll(ClassScanner.findClasses(new File(resources.nextElement().getFile()), ""));
+            classes.addAll(
+                    ClassScanner.findClasses(new File(resources.nextElement().getFile()), ""));
         }
         return classes;
     }
@@ -28,19 +29,23 @@ public class ClassScanner {
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    String newPackage = packageName.isEmpty() ? file.getName() : packageName + "." + file.getName();
+                    String newPackage =
+                            packageName.isEmpty()
+                                    ? file.getName()
+                                    : packageName + "." + file.getName();
                     classes.addAll(findClasses(file, newPackage));
                 } else if (file.getName().endsWith(".class")) {
-                    String className = packageName + "." + file.getName().substring(0, file.getName().length() - 6);
+                    String className =
+                            packageName
+                                    + "."
+                                    + file.getName().substring(0, file.getName().length() - 6);
                     try {
                         classes.add(Class.forName(className));
                     } catch (ClassNotFoundException ignore) {
                     }
-
                 }
             }
         }
         return classes;
     }
-
 }
